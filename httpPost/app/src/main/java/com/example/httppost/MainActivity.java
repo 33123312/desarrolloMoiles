@@ -11,6 +11,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,37 +21,143 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        volleyPost();
+        registrar();
+        loguearse();
+        consultarRestaurantes();
     }
 
 
-    public void volleyPost(){
-        String postUrl = "https://ceb64.herokuapp.com/reserv";
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+    public void registrar(){
+
+        FetchData dataConsulter = new FetchData(this);
 
         JSONObject postData = new JSONObject();
         try {
-            postData.put("id_usuario", 12);
-            postData.put("personas", 3);
-            postData.put("afuera", false);
+            postData.put("usuario", "prueba app2");
+            postData.put("nombre", "prueba");
+            postData.put("apellidos", "app");
+            postData.put("numTel", "12343545");
+            postData.put("password", "picho");
+
+
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, postUrl, postData, new Response.Listener<JSONObject>() {
+        Response.Listener<JSONObject>  onResponse = new Response.Listener<JSONObject>(){
             @Override
             public void onResponse(JSONObject response) {
-                System.out.println(response);
+                try {
+                    if(response.getBoolean("succ") == true)
+                        System.out.println("osi,osi");
+                    else
+                        System.out.println(response.getString("error"));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        }, new Response.ErrorListener() {
+        };
+        dataConsulter.fetch(Request.Method.POST,"register",postData,onResponse);
+
+    }
+
+    public void loguearse(){
+
+        FetchData dataConsulter = new FetchData(this);
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("usuario", "prueba app2");
+            postData.put("password", "picho");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Response.Listener<JSONObject>  onResponse = new Response.Listener<JSONObject>(){
             @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.has("error"))
+                        System.out.println(response.getString("error"));
+                    else{
+                        System.out.println(response.getString("_id"));
+                        System.out.println(response.getString("nombres"));
+                        System.out.println(response.getString("apellidos"));
+                        System.out.println(response.getString("num_telef"));
+                        System.out.println(response.getString("password"));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-        });
+        };
+        dataConsulter.fetch(Request.Method.POST,"log",postData,onResponse);
+    }
 
-        requestQueue.add(jsonObjectRequest);
 
+    public void reservar(){
+
+        FetchData dataConsulter = new FetchData(this);
+
+        JSONObject postData = new JSONObject();
+        try {
+            postData.put("restaurante", "prueba app2");
+            postData.put("usuario", "picho");
+            postData.put("personas", "prueba app2");
+            postData.put("adentro", "picho");
+            postData.put("fecha", "prueba app2");
+            postData.put("hora", "picho");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Response.Listener<JSONObject>  onResponse = new Response.Listener<JSONObject>(){
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    if (response.has("error"))
+                        System.out.println(response.getString("error"));
+                    else{
+                        System.out.println(response.getString("_id"));
+                        System.out.println(response.getString("nombres"));
+                        System.out.println(response.getString("apellidos"));
+                        System.out.println(response.getString("num_telef"));
+                        System.out.println(response.getString("password"));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        dataConsulter.fetch(Request.Method.POST,"log",postData,onResponse);
+    }
+
+    public void consultarRestaurantes(){
+
+        FetchData dataConsulter = new FetchData(this);
+
+        Response.Listener<JSONObject>  onResponse = new Response.Listener<JSONObject>(){
+            @Override
+            public void onResponse(JSONObject JSONObject) {
+                try {
+                    JSONArray restaurantes = JSONObject.getJSONArray("restaurantes");
+                    for(int i = 0; i < restaurantes.length();i++){
+                        String name = restaurantes.getJSONObject(i).getString("nombre");
+                        System.out.println(name);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        };
+        dataConsulter.fetch(Request.Method.GET,"getRes",null,onResponse);
     }
 }
