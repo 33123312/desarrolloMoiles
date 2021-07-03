@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name = "EVA1_8_EVENTOS_RECURSOS"

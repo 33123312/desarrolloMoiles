@@ -19,11 +19,12 @@ public class MainActivity extends AppCompatActivity {
     ImageView img;
     Thread hilo;
     Handler handler = new Handler();
+    Bitmap a;
 
     Runnable fore = new Runnable() {
         @Override
         public void run() {
-            img.setImageBitmap(decscargar());
+            img.setImageBitmap(a);
         }
     };
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 super.run();
+                a = decscargar("https://wallpaperaccess.com/full/1078398.jpg");
                 handler.post(fore);
             }
         };

@@ -1,2 +1,0 @@
-include ':app'
-rootProject.name = "EVA1_9_CICLO_DE_VIDA"

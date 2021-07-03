@@ -18,11 +18,13 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView img;
     Thread hilo;
+
+    Bitmap a;
     Handler handler = new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
-            img.setImageBitmap(decscargar());
+            img.setImageBitmap(a);
         }
     };
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 super.run();
+                a = decscargar("https://wallpaperaccess.com/full/1078398.jpg");
                 Message mg = handler.obtainMessage();
                 handler.sendMessage(mg);
             }

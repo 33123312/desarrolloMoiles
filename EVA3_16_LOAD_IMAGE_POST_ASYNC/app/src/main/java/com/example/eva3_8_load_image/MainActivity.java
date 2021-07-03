@@ -18,7 +18,7 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
 
     ImageView img;
-
+    Bitmap a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Bitmap decscargar(){
         try {
-            InputStream i = (InputStream)new URL("").getContent();
+            InputStream i = (InputStream)new URL("https://wallpaperaccess.com/full/1078398.jpg").getContent();
             Bitmap bit = BitmapFactory.decodeStream(i);
             return bit;
         } catch (IOException e) {
@@ -58,12 +58,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(String... values) {
             super.onProgressUpdate(values);
-            img.setImageBitmap(decscargar());
+            img.setImageBitmap(a);
 
         }
 
         @Override
         protected Void doInBackground(Integer... integers) {
+            a = decscargar();
             publishProgress("");
 
             return null;

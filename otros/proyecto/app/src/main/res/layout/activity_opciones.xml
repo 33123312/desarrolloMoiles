@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    tools:context=".Opciones">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="165dp"
+        android:layout_height="79dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        app:srcCompat="@drawable/logosolo" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="¿Qué quieres hacer?"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnReservar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/registrarse"
+        android:onClick="onClickReservar"
+        android:text="Reservar mesa"
+        android:layout_marginTop="50dp"
+        app:iconTint="#D51D1D" />
+
+    <Button
+        android:id="@+id/btnReservas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickReservas"
+        android:layout_marginTop="50dp"
+        android:text="Ver mis reservas"
+        android:background="@drawable/registrarse"/>
+
+    <Button
+        android:id="@+id/btnCuent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickCuenta"
+        android:layout_marginTop="50dp"
+        android:text="Mi cuenta"
+        android:background="@drawable/registrarse"/>
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/mybutton"
+        android:text="Cerrar sesión"
+        android:layout_marginTop="190dp"
+        android:textSize="10sp"
+        android:textColor="@color/white"
+        android:onClick="onClickCierr"/>
+</LinearLayout>
+
+</LinearLayout>
